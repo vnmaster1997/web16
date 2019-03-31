@@ -11,31 +11,55 @@ function generate(testLengthArray){
   //   })
   // ); // Remove this line and change to your own algorithm
 
-  var a = []
+  var results = [];
+  
+  // testLengthArray.forEach(function(item) {
 
-  for(var i = 0; i < testLengthArray.length; i++) {
-    var input = [];
-    var target = 0;
-    var output = -1;
-    for(var j = 0; j < testLengthArray[i]; j++) {
-      input[j] = (getRandomInt(-10, 10));
+  // })
+
+  // testLengthArray.filter(function(item) {
+  //   return item > 5;
+  // })
+
+  // return testLengthArray.map(function(testLengthArratItem, index) {
+  //   // tra ve array moi tu array cu
+  // })
+
+  for(let i = 0; i < testLengthArray.length; i++) {
+    let newItem = {
+      input: [],
+      output: null,
+      target: null
     }
-    
-    target = (getRandomInt(-10, 10));
 
-    for(var j = 0; j < testLengthArray[i]; j++) {
-      if(input[j] == target) {
-        output = j;
-        break;
-      } else {
-        output = -1;
-      }
-
+    for(let j = 0; j < testLengthArray[i]; j++) {
+      newItem.input.push(Math.floor(Math.random()*20000-10000));
     }
-    var x = {input, target, output};
-    a.push(x);
+
+    newItem.input.sort((a,b) => {
+      return a-b;
+    });
+
+    if(i == 0) {
+      newItem.target = 10001;
+      newItem.output = -1;
+    } else if(i==1) {
+      newItem.target = newItem.input[0];
+      newItem.output = 0;
+    } else if(i==2) {
+      newItem.target = newItem.input[newItem.input.length - 1];
+      newItem.output = newItem.input.length - 1;
+    } else if(i==3) {
+      newItem.target = newItem.input[2];
+      newItem.output = 2;
+    } else {
+      newItem.target = Math.floor(Math.random()*20000-10000);
+      newItem.output = newItem.input.indexOf(newItem.target);
+    }
+
+    results.push(newItem);
   }
-  return a;
+  return results;
 }
 
 module.exports = generate
